@@ -85,9 +85,13 @@ Versions of software the skeleton uses:
 
 * jQuery 1.10.2
 * Backbone 1.1.0
+* Backbone.Pageable 1.4.3
 * Underscore 1.5.2
 * Twitter Bootstrap 3.0.0
+* i18next 1.7.1
+* Moment 2.5.0
 * MarionetteJS 1.4.1
+* FastClick 0.6.8
 
 # Legal Stuff (MIT License)
 Original template is Copyright (c) 2013 Simeon Bateman; SimB & Company. We assume no rights or liablities for the code contained.  All libraries are owned and licensed by the ownsers.  Use at your own risk.
