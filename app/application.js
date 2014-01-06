@@ -1,20 +1,22 @@
 require('lib/view_helper');
 
 var App = Backbone.Marionette.Application.extend({
-  initialize: function() {
+  initialize: function(opts) {
     require('lib/view_helper');
-
+    var _this = this;
+    this.setupConfig(opts);
+    
     this.addInitializer(this.setupCommonModules);
-    this.addInitializer(this.extendBackbone);    
-    this.addInitializer(this.setupLocale);    
+    this.addInitializer(this.extendBackbone);     
     this.addInitializer(this.extendAjax);
     this.addInitializer(this.mobileFixes);
     this.addInitializer(this.bindAppEvents);
-    
-    this.on('initialize:after', function(options) {
-      Backbone.history.start();
+    this.addInitializer(function(options) {
+      Backbone.history.start(); 
       return typeof Object.freeze === "function" ? Object.freeze(this) : void 0;
     });
+    
+    this.setupLocale().done(function() {_this.start();});
   },
   
   extendBackbone: function(options) {
@@ -59,25 +61,27 @@ var App = Backbone.Marionette.Application.extend({
   setupLocale: function(options) {
     var language = this.config.get('languages').standard;
     
-    i18n.init({
+    return i18n.init({
       preload: ['dev'],
       lng: language,
       fallbackLng: 'dev',
-      getAsync: false
+      getAsync: true
     });
+  },
+  
+  setupConfig: function(options) {
+    var Config = require('models/Config');
+    this.config = new Config();
+    this.parseOptions(this.initOptions);
   },
   
   setupCommonModules: function(options) {
     // Set up the Layout
-    var Config = require('models/Config');
-    this.config = new Config();
-    this.parseOptions(opts);
-
     var AppRouter = require('routers/AppRouter'),
         AppLayout = require('views/AppLayout');
         
     this.routers = {
-      app: new ApppRouter(),
+      app: new AppRouter()
     };
     
     this.layout = new AppLayout({el: this.config.get('el')});
@@ -85,6 +89,7 @@ var App = Backbone.Marionette.Application.extend({
   },
   
   extendAjax: function(options) {
+    var _this = this;
     // Add custom headers
     $.ajaxSetup({
       headers : _this.config.get('HTTPheaders')
@@ -105,6 +110,8 @@ var App = Backbone.Marionette.Application.extend({
   },
   
   bindAppEvents: function() {
+    var _this = this;
+    
     this.vent.on({
       'title:change': function(data) {
         if (!_(data).isArray()) data = [data];

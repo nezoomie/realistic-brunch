@@ -1,5 +1,5 @@
 var app = require('application'),
-    HomeView = require('views/cart/HomeView');
+    HomeView = require('views/HomeView');
 
 var AppController = {
   home: function(){
@@ -16,4 +16,4 @@ app.vent.on({
   }
 });
 
-module.exports = CartController;
+module.exports = AppController;

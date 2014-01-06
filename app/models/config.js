@@ -6,7 +6,7 @@ module.exports = Model.extend({
   defaults: {
     _NAME: 'My Single Page App',
     _VERSION: '0.1',
-    apiUrl: '/api',
+    apiUrl: '',
     el: 'body',
     title: {
       base: "My Single Page App",
