@@ -1,3 +1,4 @@
+var app = require('application');
 // Put your handlebars.js helpers here.
 
 // Basic i18next handlebars helper
@@ -35,6 +36,28 @@ Handlebars.registerHelper('tr', function(options) {
     return new Handlebars.SafeString(result);
 });
 
-Handlebars.registerHelper('pick', function(val, options) {
-  return options.hash[val];
+// Format date/time according to the current Locale
+// Usage:
+//
+// {{time value=dateToFormat}}
+// 
+// additional formats can be specified in `models/Config`:
+//
+//  dateFormats: {
+//    standard: 'MMMM Do YYYY',
+//    myCustomFormat: 'MM yy'
+//  }
+//
+// and then used:
+//
+// {{ time value=dateToFormat format="myCustomFormat" }}
+
+Handlebars.registerHelper('time', function(options) {
+  LOG(options.hash.value);
+    var value = options.hash.value,
+        dateFormats = app.config.get('dateFormats'),
+        format = options.hash.format || 'standard',
+        result = moment(value).format(dateFormats[format]);
+        
+    return new Handlebars.SafeString(result);
 });

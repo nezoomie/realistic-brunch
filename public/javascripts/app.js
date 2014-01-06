@@ -91,12 +91,10 @@
   globals.require.brunch = true;
 })();
 require.register("application", function(exports, require, module) {
-require('lib/view_helper');
-
 var App = Backbone.Marionette.Application.extend({
   initialize: function(opts) {
-    require('lib/view_helper');
     var _this = this;
+    require('lib/view_helper');
     this.setupConfig(opts);
     
     this.addInitializer(this.setupCommonModules);
@@ -152,14 +150,26 @@ var App = Backbone.Marionette.Application.extend({
   },
   
   setupLocale: function(options) {
-    var language = this.config.get('languages').standard;
-    
-    return i18n.init({
-      preload: ['dev'],
-      lng: language,
-      fallbackLng: 'dev',
-      getAsync: true
-    });
+    var language = this.config.get('languages').standard,
+        deferred = i18n.init({
+          preload: ['dev'],
+          lng: language,
+          fallbackLng: 'dev',
+          getAsync: true
+        }, function() {
+          moment.lang(i18n.lng());
+        });
+        
+      return deferred;
+  },
+  
+  setLocale: function(locale) {
+    if(i18n.lng() == locale)
+        return;
+  
+    i18n.setLng(locale);
+    moment.lang(locale);
+    this.layout.render();
   },
   
   setupConfig: function(options) {
@@ -169,6 +179,7 @@ var App = Backbone.Marionette.Application.extend({
   },
   
   setupCommonModules: function(options) {
+    require('lib/view_helper');
     // Set up the Layout
     var AppRouter = require('routers/AppRouter'),
         AppLayout = require('views/AppLayout');
@@ -285,6 +296,7 @@ $(document).ready(function() {
 });
 
 ;require.register("lib/view_helper", function(exports, require, module) {
+var app = require('application');
 // Put your handlebars.js helpers here.
 
 // Basic i18next handlebars helper
@@ -322,8 +334,30 @@ Handlebars.registerHelper('tr', function(options) {
     return new Handlebars.SafeString(result);
 });
 
-Handlebars.registerHelper('pick', function(val, options) {
-  return options.hash[val];
+// Format date/time according to the current Locale
+// Usage:
+//
+// {{time value=dateToFormat}}
+// 
+// additional formats can be specified in `models/Config`:
+//
+//  dateFormats: {
+//    standard: 'MMMM Do YYYY',
+//    myCustomFormat: 'MM yy'
+//  }
+//
+// and then used:
+//
+// {{ time value=dateToFormat format="myCustomFormat" }}
+
+Handlebars.registerHelper('time', function(options) {
+  LOG(options.hash.value);
+    var value = options.hash.value,
+        dateFormats = app.config.get('dateFormats'),
+        format = options.hash.format || 'standard',
+        result = moment(value).format(dateFormats[format]);
+        
+    return new Handlebars.SafeString(result);
 });
 });
 
@@ -345,6 +379,9 @@ module.exports = Model.extend({
     },
     languages: {
       standard: 'en'
+    },
+    dateFormats: {
+      standard: 'MMMM Do YYYY'
     },
     HTTPheaders:{
       // Add custom HTTP headers here
@@ -397,7 +434,11 @@ module.exports = Backbone.Marionette.Layout.extend({
 module.exports = Backbone.Marionette.ItemView.extend({
   id: 'home-view',
   
-	template: 'views/templates/home'
+	template: 'views/templates/home',
+	
+	templateHelpers: {
+	  now: new Date()
+	}
 });
 
 });
@@ -421,10 +462,16 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 module.exports = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  
+  var buffer = "", stack1, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
 
 
-  return "<div class=\"row\">\n  <div class=\"span12\">\n    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n  </div>\n</div>\n\n    ";
+  buffer += "<div class=\"row\">\n  <div class=\"span12\">\n    ";
+  options = {hash:{
+    'value': (depth0.now)
+  },data:data};
+  buffer += escapeExpression(((stack1 = helpers.time || depth0.time),stack1 ? stack1.call(depth0, options) : helperMissing.call(depth0, "time", options)))
+    + "\n    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n  </div>\n</div>\n\n    ";
+  return buffer;
   });
 });
 

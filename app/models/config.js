@@ -16,6 +16,9 @@ module.exports = Model.extend({
     languages: {
       standard: 'en'
     },
+    dateFormats: {
+      standard: 'MMMM Do YYYY'
+    },
     HTTPheaders:{
       // Add custom HTTP headers here
     }, 

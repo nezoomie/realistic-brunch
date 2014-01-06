@@ -1,9 +1,7 @@
-require('lib/view_helper');
-
 var App = Backbone.Marionette.Application.extend({
   initialize: function(opts) {
-    require('lib/view_helper');
     var _this = this;
+    require('lib/view_helper');
     this.setupConfig(opts);
     
     this.addInitializer(this.setupCommonModules);
@@ -59,14 +57,26 @@ var App = Backbone.Marionette.Application.extend({
   },
   
   setupLocale: function(options) {
-    var language = this.config.get('languages').standard;
-    
-    return i18n.init({
-      preload: ['dev'],
-      lng: language,
-      fallbackLng: 'dev',
-      getAsync: true
-    });
+    var language = this.config.get('languages').standard,
+        deferred = i18n.init({
+          preload: ['dev'],
+          lng: language,
+          fallbackLng: 'dev',
+          getAsync: true
+        }, function() {
+          moment.lang(i18n.lng());
+        });
+        
+      return deferred;
+  },
+  
+  setLocale: function(locale) {
+    if(i18n.lng() == locale)
+        return;
+  
+    i18n.setLng(locale);
+    moment.lang(locale);
+    this.layout.render();
   },
   
   setupConfig: function(options) {
@@ -76,6 +86,7 @@ var App = Backbone.Marionette.Application.extend({
   },
   
   setupCommonModules: function(options) {
+    require('lib/view_helper');
     // Set up the Layout
     var AppRouter = require('routers/AppRouter'),
         AppLayout = require('views/AppLayout');

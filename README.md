@@ -8,6 +8,7 @@ Javascript + [Backbone](http://backbonejs.org/) + [Handlebars](http://handlebars
 * [Bootstrap 3 (stylus edition)](https://github.com/Acquisio/bootstrap-stylus), as source code for easy customization
 * [MarionetteJS](http://marionettejs.com/) for practical views management, routers, event aggregator and more
 * [i18next](http://i18next.com/) eases internationalization
+* [Moment](http://momentjs.com/) for easy date formatting
 * [FastClick](https://github.com/ftlabs/fastclick) improves tapping responsiveness on mobile devices
 * [FontAwesome](http://fontawesome.io/) provides scalable graphics for your UI
 * [Backbone.Pageable](https://github.com/backbone-paginator/backbone-pageable) simplifies handling paginated collections
@@ -68,7 +69,7 @@ Javascript + [Backbone](http://backbonejs.org/) + [Handlebars](http://handlebars
 
 
 * Utility function for changing page title via events
-* Handlebars helpers for using translations in templates
+* Handlebars template helpers for integrated translations and date formatting
 * Setup additional HTTP Headers for AJAX requests in the Config directly
 * Custom `LOG()` function wrapping `console.log()`, stripped out when building the app with `ENV=production`
 

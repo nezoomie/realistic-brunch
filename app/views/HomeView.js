@@ -1,5 +1,9 @@
 module.exports = Backbone.Marionette.ItemView.extend({
   id: 'home-view',
   
-	template: 'views/templates/home'
+	template: 'views/templates/home',
+	
+	templateHelpers: {
+	  now: new Date()
+	}
 });
