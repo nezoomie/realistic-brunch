@@ -75,7 +75,7 @@ Javascript + [Backbone](http://backbonejs.org/) + [Handlebars](http://handlebars
 
 
 ## Getting started
-* Create new project via executing `brunch new <project name> --skeleton https://github.com/nezoomie/realistic-brunch.git` option for the command.
+* Create new project via executing `brunch new gh:nezoomie/realistic-brunch <project-name>` option for the command.
 * Build the project with `brunch b` or `brunch w`.
 * Open the `public/` dir to see the result.
 * Write your code.
