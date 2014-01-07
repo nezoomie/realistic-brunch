@@ -27,6 +27,23 @@
     "font-awesome": "~4.0.3"
   },
   "overrides": {
+    "bootstrap-stylus": {
+      "main": [
+        "stylus/bootstrap.styl",
+        "js/transition.js",
+        "js/alert.js",
+        "js/button.js",
+        "js/carousel.js",
+        "js/collapse.js",
+        "js/dropdown.js",
+        "js/modal.js",
+        "js/tooltip.js",
+        "js/popover.js",
+        "js/scrollspy.js",
+        "js/tab.js",
+        "js/affix.js"
+      ]
+    },
     "underscore": {
       "main": "underscore.js"
     },
@@ -42,12 +59,6 @@
       "dependencies": {
         "backbone": "~1.1.0"
       }
-    },
-    "bootstrap-stylus": {
-      "main": [
-        "javascripts/bootstrap.js",
-        "stylesheets/bootstrap.css"
-      ]
     },
     "font-awesome": {
       "main": [

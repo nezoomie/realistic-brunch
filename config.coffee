@@ -18,14 +18,7 @@ exports.config =
         'test/javascripts/test.js': /^test[\\/](?!vendor)/
         'test/javascripts/test-vendor.js': /^test[\\/](?=vendor)/
       order:
-        before: [
-          'vendor/scripts/console-helper.js'
-          'vendor/scripts/jquery.js'
-          'vendor/scripts/underscore.js'
-          'vendor/scripts/backbone.js'
-          'vendor/scripts/backbone.marionette.js'
-          'vendor/scripts/bootstrap.js'
-        ]
+        before: []
         after: [
           'test/vendor/scripts/test-helper.js'
         ]
@@ -36,11 +29,7 @@ exports.config =
         'stylesheets/app.css': /^app/
         'stylesheets/vendor.css': /^(bower_components|vendor)/
       order:
-        before: [
-          'vendor/styles/bootstrap.styl'
-          'vendor/styles/bootstrap-theme.styl'
-          'vendor/font-awesome.css'          
-        ]
+        before: []
         after: []
 
     templates:
