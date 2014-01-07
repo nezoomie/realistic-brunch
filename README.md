@@ -16,8 +16,6 @@ Javascript + [Backbone](http://backbonejs.org/) + [Handlebars](http://handlebars
 
 ## Getting started
 * Create a new project via executing `brunch new gh:nezoomie/realistic-brunch <project-name>` option for the command.
-* `npm install`
-* `bower install`
 * Build the project with `brunch b` or `brunch w`.
 * Open the `public/` dir to see the result.
 * Write your code.
