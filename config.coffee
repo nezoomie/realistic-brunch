@@ -14,7 +14,7 @@ exports.config =
       defaultExtension: 'coffee'
       joinTo:
         'javascripts/app.js': /^app/
-        'javascripts/vendor.js': /^vendor/
+        'javascripts/vendor.js': /^(bower_components|vendor)/
         'test/javascripts/test.js': /^test[\\/](?!vendor)/
         'test/javascripts/test-vendor.js': /^test[\\/](?=vendor)/
       order:
@@ -34,7 +34,7 @@ exports.config =
       defaultExtension: 'styl'
       joinTo:
         'stylesheets/app.css': /^app/
-        'stylesheets/vendor.css': /^vendor/
+        'stylesheets/vendor.css': /^(bower_components|vendor)/
       order:
         before: [
           'vendor/styles/bootstrap.styl'

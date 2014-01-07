@@ -67,7 +67,7 @@ var App = Backbone.Marionette.Application.extend({
           moment.lang(i18n.lng());
         });
         
-      return deferred;
+    return deferred;
   },
   
   setLocale: function(locale) {

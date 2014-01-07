@@ -1,0 +1,66 @@
+{
+  "name": "realistic-brunch",
+  "version": "0.0.1",
+  "homepage": "https://github.com/nezoomie/realistic-brunch",
+  "authors": [
+    "Giuseppe Sorce <giuseppe.sorce@kreuzwerker.de>"
+  ],
+  "description": "Comprehensive brunch skeleton for web apps",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.0.3",
+    "underscore": "~1.5.2",
+    "backbone": "~1.1.0",
+    "backbone.marionette": "~1.4.1",
+    "backbone-pageable": "~1.4.3",
+    "moment": "~2.5.0",
+    "i18next": "~1.7.1",
+    "bootstrap-stylus": "~3.0.0",
+    "fastclick": "~0.6.10",
+    "font-awesome": "~4.0.3"
+  },
+  "overrides": {
+    "underscore": {
+      "main": "underscore.js"
+    },
+    "backbone": {
+      "main": "backbone.js",
+      "dependencies": {
+        "underscore": "~1.5.0",
+        "jquery": "~2.0.0"
+      }
+    },
+    "backbone-pageable": {
+      "main": "backbone-pageable.js",
+      "dependencies": {
+        "backbone": "~1.1.0"
+      }
+    },
+    "bootstrap-stylus": {
+      "main": [
+        "javascripts/bootstrap.js",
+        "stylesheets/bootstrap.css"
+      ]
+    },
+    "font-awesome": {
+      "main": [
+        "stylesheets/font-awesome.css",
+        "fonts/fontawesome-webfont.eot",
+        "fonts/fontawesome-webfont.svg",
+        "fonts/fontawesome-webfont.ttf",
+        "fonts/fontawesome-webfont.woff",
+        "fonts/FontAwesome.otf"
+      ],
+      "dependencies": {
+        "bootstrap-stylus": "*"
+      }
+    }
+  }
+}

@@ -5,7 +5,7 @@ An essential but comprehensive, healthy recipe for your responsive apps.
 
 Javascript + [Backbone](http://backbonejs.org/) + [Handlebars](http://handlebarsjs.com/) + [Stylus](http://learnboost.github.com/stylus/) skeleton, boosted with:
 
-* [Bootstrap 3 (stylus edition)](https://github.com/Acquisio/bootstrap-stylus), as source code for easy customization
+* [Bootstrap 3 (stylus edition)](https://github.com/Acquisio/bootstrap-stylus)
 * [MarionetteJS](http://marionettejs.com/) for practical views management, routers, event aggregator and more
 * [i18next](http://i18next.com/) eases internationalization
 * [Moment](http://momentjs.com/) for easy date formatting
@@ -13,6 +13,14 @@ Javascript + [Backbone](http://backbonejs.org/) + [Handlebars](http://handlebars
 * [FontAwesome](http://fontawesome.io/) provides scalable graphics for your UI
 * [Backbone.Pageable](https://github.com/backbone-paginator/backbone-pageable) simplifies handling paginated collections
 * [jQuery](http://jquery.com/) for your DOM needs
+
+## Getting started
+* Create a new project via executing `brunch new gh:nezoomie/realistic-brunch <project-name>` option for the command.
+* `npm install`
+* `bower install`
+* Build the project with `brunch b` or `brunch w`.
+* Open the `public/` dir to see the result.
+* Write your code.
 
 ## Handy practices included
 
@@ -73,13 +81,6 @@ Javascript + [Backbone](http://backbonejs.org/) + [Handlebars](http://handlebars
 * Setup additional HTTP Headers for AJAX requests in the Config directly
 * Custom `LOG()` function wrapping `console.log()`, stripped out when building the app with `ENV=production`
 
-
-## Getting started
-* Create new project via executing `brunch new gh:nezoomie/realistic-brunch <project-name>` option for the command.
-* Build the project with `brunch b` or `brunch w`.
-* Open the `public/` dir to see the result.
-* Write your code.
-
 ## Other
 Versions of software the skeleton uses:
 
@@ -94,6 +95,4 @@ Versions of software the skeleton uses:
 * FastClick 0.6.8
 
 # Legal Stuff (MIT License)
-Original template is Copyright (c) 2013 Simeon Bateman; SimB & Company. We assume no rights or liablities for the code contained.  All libraries are owned and licensed by the ownsers.  Use at your own risk.
-
 Distributed under MIT license.
