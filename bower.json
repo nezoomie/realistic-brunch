@@ -24,7 +24,8 @@
     "i18next": "~1.7",
     "bootstrap-stylus": "~3.0",
     "fastclick": "~0.6",
-    "font-awesome": "~4.0"
+    "font-awesome": "~4.0",
+    "jquery-mockjax": "~1.5"
   },
   "overrides": {
     "bootstrap-stylus": {

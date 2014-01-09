@@ -2,18 +2,23 @@
 <head>
   <meta charset="utf-8">
   <title>Mocha Tests</title>
-  <link rel="stylesheet" href="stylesheets/test.css" />
-
   <script src="../javascripts/vendor.js"></script>
   <script src="../javascripts/app.js"></script>
   <script src="javascripts/test-vendor.js"></script>
   <script src="javascripts/test.js"></script>
   <script>
   $(function() {
-    require('test/initialize');
-    if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
-    else { mocha.run(); }
+    window.require.list()
+      .filter(function(name) {return /-test$.test(name)/;})
+      .forEach(require);
+      
+    if (window.mochaPhantomJS) {
+      mochaPhantomJS.run();
+    } else {
+      mocha.run();
+    }      
   });
+
   </script>
 </head>
 <body>
