@@ -17,12 +17,12 @@
     "test": "brunch test"
   },
   "dependencies": {
-    "javascript-brunch": "~1.7.1",
-    "css-brunch": "~1.7.0",
-    "stylus-brunch": "~1.7.0",
-    "handlebars-brunch": "~1.7.6",
-    "uglify-js-brunch": "~1.7.6",
-    "clean-css-brunch": "~1.7.1"
+    "javascript-brunch": "~1.7",
+    "css-brunch": "~1.7",
+    "stylus-brunch": "~1.7",
+    "handlebars-brunch": "~1.7",
+    "uglify-js-brunch": "~1.7",
+    "clean-css-brunch": "~1.7"
   },
   "main": "index.js",
   "directories": {
