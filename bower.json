@@ -25,7 +25,8 @@
     "bootstrap-stylus": "~3.0",
     "fastclick": "~0.6",
     "font-awesome": "~4.0",
-    "jquery-mockjax": "~1.5"
+    "jquery-mockjax": "~1.5",
+    "backbone.subviews": "*"
   },
   "overrides": {
     "bootstrap-stylus": {
