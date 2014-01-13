@@ -12,6 +12,8 @@ Javascript + [Backbone](http://backbonejs.org/) + [Handlebars](http://handlebars
 * [FastClick](https://github.com/ftlabs/fastclick) improves tapping responsiveness on mobile devices
 * [FontAwesome](http://fontawesome.io/) provides scalable graphics for your UI
 * [Backbone.Pageable](https://github.com/backbone-paginator/backbone-pageable) simplifies handling paginated collections
+* [Backbone.Subviews](https://github.com/rotundasoftware/backbone.subviews) eases creating complex composite views
+* [Mockjax](https://github.com/appendto/jquery-mockjax) mocks up your APIs so you can work in parallel with backenders
 * [jQuery](http://jquery.com/) for your DOM needs
 
 ## Getting started
@@ -79,18 +81,14 @@ Javascript + [Backbone](http://backbonejs.org/) + [Handlebars](http://handlebars
 * Setup additional HTTP Headers for AJAX requests in the Config directly
 * Custom `LOG()` function wrapping `console.log()`, stripped out when building the app with `ENV=production`
 
-## Other
-Versions of software the skeleton uses:
+## Run tests
 
-* jQuery 1.10.2
-* Backbone 1.1.0
-* Backbone.Pageable 1.4.3
-* Underscore 1.5.2
-* Twitter Bootstrap 3.0.0
-* i18next 1.7.1
-* Moment 2.5.0
-* MarionetteJS 1.4.1
-* FastClick 0.6.8
+Tests are written in Mocha and run using Mocha-PhantomJS.
+
+* Put your tests into `test/`
+* Install PhantomJS if missing, `npm install -g phantomjs`
+* Install Mocha-PhantomJS if missing, `npm install -g mocha-phantomjs`
+* `npm test`
 
 # Legal Stuff (MIT License)
 Distributed under MIT license.
