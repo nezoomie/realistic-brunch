@@ -1,22 +1,27 @@
 var App = Backbone.Marionette.Application.extend({
   initialize: function(opts) {
     var _this = this;
+    _.bindAll(this, 'setupCommonModules', 'freezeApp', 'init',
+      'extendBackbone', 'extendAjax', 'setupConfig', 'setupLocale',
+      'mobileFixes');
+
     require('lib/view_helper');
     this.setupConfig(opts);
-    
-    this.addInitializer(this.setupCommonModules);
-    this.addInitializer(this.extendBackbone);     
-    this.addInitializer(this.extendAjax);
-    this.addInitializer(this.mobileFixes);
-    this.addInitializer(this.bindAppEvents);
-    this.addInitializer(function(options) {
-      Backbone.history.start(); 
-      return typeof Object.freeze === "function" ? Object.freeze(this) : void 0;
-    });
-    
-    this.setupLocale().done(function() {_this.start();});
+    this.extendBackbone();
+    this.extendAjax();
+    this.mobileFixes();
+    this.setupLocale().done(this.init);
   },
-  
+
+  freezeApp: function(options) {
+    Backbone.history.start({
+      pushState: true,
+      root: this.config.get('appRoot')
+    });
+    this.start();
+    return typeof Object.freeze === "function" ? Object.freeze(this) : void 0;
+  },
+
   extendBackbone: function(options) {
     var _this = this;
     // Extend models to support resource nesting
@@ -55,28 +60,46 @@ var App = Backbone.Marionette.Application.extend({
       }
     });
   },
-  
+
   setupLocale: function(options) {
-    var language = this.config.get('languages').standard,
-        deferred = i18n.init({
-          preload: ['dev'],
-          lng: language,
-          fallbackLng: 'dev',
-          getAsync: true
-        }, function() {
-          moment.lang(i18n.lng());
-        });
-        
+    var _this = this,
+      locale = this.config.get('locale'),
+      languages = locale.languages,
+      language = locale.standard,
+      deferred = i18n.init({
+        preload: [language],
+        fallbackLng: 'dev',
+        resGetPath: this.config.get('appRoot') + 'locales/__lng__/__ns__.json',
+        getAsync: true
+      }, function() {
+        var detected = i18n.lng(),
+          base = detected.split('-')[0],
+          newLang = _this.config.get('locale').standard;
+
+        if (_.contains(languages, detected)) {
+          newLang = detected;
+        } else if (_.contains(languages, base)) {
+          newLang = base;
+        }
+
+        _this.setLocale(newLang);
+      });
+
     return deferred;
   },
-  
+
   setLocale: function(locale) {
+    var _this = this;
     if(i18n.lng() == locale)
-        return;
-  
-    i18n.setLng(locale);
-    moment.lang(locale);
-    this.layout.render();
+      return;
+
+    this.vent.trigger('lockingModal:open');
+    this.config.set('lang',locale);
+    i18n.setLng(locale, function() {
+      moment.lang(locale);
+      _this.vent.trigger('lockingModal:close');
+      _this.layout.refreshRegions();
+    });
   },
   
   setupConfig: function(options) {
@@ -84,7 +107,17 @@ var App = Backbone.Marionette.Application.extend({
     this.config = new Config();
     this.parseOptions(this.initOptions);
   },
-  
+
+  init: function(options) {
+    var _this = this,
+        redirectUrl = window.location.href.toString().split(window.location.host)[1];
+
+    this.config.set('redirectUrl', redirectUrl);
+    this.setupCommonModules();
+    this.bindAppEvents();
+    this.freezeApp();
+  },
+
   setupCommonModules: function(options) {
     require('lib/view_helper');
     // Set up the Layout
@@ -127,7 +160,7 @@ var App = Backbone.Marionette.Application.extend({
       'title:change': function(data) {
         if (!_(data).isArray()) data = [data];
         _this.changeTitle(data);
-      },
+      }
     });
   },
   

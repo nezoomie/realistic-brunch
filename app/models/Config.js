@@ -7,13 +7,15 @@ module.exports = Model.extend({
     _NAME: 'My Single Page App',
     _VERSION: '0.1',
     apiUrl: '',
+    appRoot: '/',
     el: 'body',
     title: {
       base: "My Single Page App",
       separator: " | ",
       subSeparator: " - "
     },
-    languages: {
+    locale: {
+      languages: ['en', 'de'],
       standard: 'en'
     },
     dateFormats: {
@@ -21,6 +23,6 @@ module.exports = Model.extend({
     },
     HTTPheaders:{
       // Add custom HTTP headers here
-    }, 
+    }
   }
 });
