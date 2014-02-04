@@ -26,6 +26,7 @@
     "fastclick": "~0.6",
     "font-awesome": "~4.0",
     "jquery-mockjax": "~1.5",
+    "chance": "~0.5",
     "backbone.subviews": "*"
   },
   "overrides": {
